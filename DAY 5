@@ -1,23 +1,33 @@
+#include <unordered_map>
+#include <string>
+
 class Solution {
-    public int countPrimes(int n) {
-        if(n<2){
-            return 0 ;
-        }
-        boolean isPrime[] = new boolean[n+1];
-        Arrays.fill(isPrime , true);  
-        isPrime[0] = false;
-        isPrime[1] = false;
-        for(int i=2 ; i*i<=n ; i++){
-            for(int j = 2*i;j<=n;j+=i){
-                isPrime[j] = false;
+public:
+    int romanToInt(std::string s) {
+        std::unordered_map<char, int> romanMap {
+            {'I', 1},
+            {'V', 5},
+            {'X', 10},
+            {'L', 50},
+            {'C', 100},
+            {'D', 500},
+            {'M', 1000}
+        };
+        
+        int result = 0;
+        int prevValue = 0;
+        
+        for (int i = s.length() - 1; i >= 0; i--) {
+            int currValue = romanMap[s[i]];
+            
+            if (currValue < prevValue) {
+                result -= currValue;
+            } else {
+                result += currValue;
+                prevValue = currValue;
             }
         }
-        int k=0;
-        for(int i=0;i<n;i++){
-            if(isPrime[i]==true){
-                k++;
-            }
-        }
-        return k;
+        
+        return result;
     }
-}
+};
