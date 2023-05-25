@@ -1,17 +1,19 @@
-class Solution {
-    public boolean isPalindrome(int x) {
-        int r;int s=0;
-        int n=x;
-        while(x>0)
-        {
-        r=x%10;
-        s=(s*10)+r;
-        x=x/10;
+public class Solution {
+    public static void main(String[] args) {
+        // Initialize a 2D boolean array with 3 rows and 4 columns
+        boolean[][] myArray = new boolean[3][4];
         
+        // Set some values in the array
+        myArray[0][1] = true;
+        myArray[1][2] = true;
+        myArray[1][3] = true;
+        
+        // Loop through the array and print out the values
+        for (int i = 0; i < myArray.length; i++) {
+            for (int j = 0; j < myArray[i].length; j++) {
+                System.out.print(myArray[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
-    if(n==s)
-    return true;
-    else
-    return false;
-}
 }
