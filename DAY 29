@@ -1,0 +1,31 @@
+class Solution {
+    public String reverseVowels(String s) {
+        char[] chars = s.toCharArray();
+        int left = 0;
+        int right = chars.length - 1;
+        
+        while (left < right) {
+            if (isVowel(chars[left]) && isVowel(chars[right])) {
+                swap(chars, left, right);
+                left++;
+                right--;
+            } else if (isVowel(chars[left])) {
+                right--;
+            } else {
+                left++;
+            }
+        }
+        
+        return new String(chars);
+    }
+    
+    private boolean isVowel(char c) {
+        return "aeiouAEIOU".indexOf(c) != -1;
+    }
+    
+    private void swap(char[] chars, int i, int j) {
+        char temp = chars[i];
+        chars[i] = chars[j];
+        chars[j] = temp;
+    }
+}
