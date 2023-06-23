@@ -1,0 +1,40 @@
+class Solution {
+    private Map<Character, String> digitToLetters = new HashMap<>();
+
+    public List<String> letterCombinations(String digits) {
+        digitToLetters.put('2', "abc");
+        digitToLetters.put('3', "def");
+        digitToLetters.put('4', "ghi");
+        digitToLetters.put('5', "jkl");
+        digitToLetters.put('6', "mno");
+        digitToLetters.put('7', "pqrs");
+        digitToLetters.put('8', "tuv");
+        digitToLetters.put('9', "wxyz");
+
+        List<String> combinations = new ArrayList<>();
+        generateCombinations(digits, 0, new StringBuilder(), combinations);
+        return combinations;
+    }
+
+    private void generateCombinations(String digits, int index, StringBuilder current, List<String> combinations) {
+        if (index == digits.length()) {
+            if (current.length() > 0) {
+                combinations.add(current.toString());
+            }
+            return;
+        }
+
+        char digit = digits.charAt(index);
+        String letters = digitToLetters.get(digit);
+        if (letters == null) {
+            generateCombinations(digits, index + 1, current, combinations);
+            return;
+        }
+
+        for (char letter : letters.toCharArray()) {
+            current.append(letter);
+            generateCombinations(digits, index + 1, current, combinations);
+            current.deleteCharAt(current.length() - 1);
+        }
+    }
+}
