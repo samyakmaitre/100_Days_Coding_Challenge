@@ -1,0 +1,31 @@
+class Solution {
+    public int totalNQueens(int n) {
+        int[] columns = new int[n];
+        int[] diagonals1 = new int[2 * n - 1];
+        int[] diagonals2 = new int[2 * n - 1];
+
+        return solveNQueens(0, n, columns, diagonals1, diagonals2);
+    }
+    
+    private int solveNQueens(int row, int n, int[] columns, int[] diagonals1, int[] diagonals2) {
+        if (row == n) {
+            return 1;
+        }
+        
+        int count = 0;
+        for (int col = 0; col < n; col++) {
+            if (columns[col] == 0 && diagonals1[row + col] == 0 && diagonals2[row - col + n - 1] == 0) {
+                columns[col] = 1;
+                diagonals1[row + col] = 1;
+                diagonals2[row - col + n - 1] = 1;
+                
+                count += solveNQueens(row + 1, n, columns, diagonals1, diagonals2);
+                
+                columns[col] = 0;
+                diagonals1[row + col] = 0;
+                diagonals2[row - col + n - 1] = 0;
+            }
+        }
+        return count;
+    }
+}
