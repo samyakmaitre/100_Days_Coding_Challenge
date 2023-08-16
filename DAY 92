@@ -1,0 +1,41 @@
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<Integer>[] graph = new ArrayList[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            graph[i] = new ArrayList<>();
+        }
+        
+        for (int[] pair : prerequisites) {
+            int courseA = pair[0];
+            int courseB = pair[1];
+            graph[courseB].add(courseA);
+        }
+        
+        boolean[] visited = new boolean[numCourses];
+        boolean[] visiting = new boolean[numCourses];
+        
+        for (int i = 0; i < numCourses; i++) {
+            if (!visited[i] && hasCycle(graph, i, visited, visiting)) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    private boolean hasCycle(List<Integer>[] graph, int course, boolean[] visited, boolean[] visiting) {
+        visiting[course] = true;
+        
+        for (int neighbor : graph[course]) {
+            if (visiting[neighbor]) {
+                return true;
+            } else if (!visited[neighbor] && hasCycle(graph, neighbor, visited, visiting)) {
+                return true;
+            }
+        }
+        
+        visiting[course] = false;
+        visited[course] = true;
+        return false;
+    }
+}
